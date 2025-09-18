@@ -1,0 +1,52 @@
+.mainCon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.studentText {
+    font-size: 18px;
+}
+
+.studentButton {
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid #a6a6a6;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.15s;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.studentButton:hover {
+    border: 2px solid #14cf8c;
+}
+
+.studentCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    border: 2px solid #a6a6a6;
+    border-radius: 10px;
+    background: white;
+    padding: 40px 50px 10px 50px;
+}
+
+.studentCardTitle {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.addedMessage {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    position: absolute;
+    bottom: 50px;
+    z-index: 2;
+}

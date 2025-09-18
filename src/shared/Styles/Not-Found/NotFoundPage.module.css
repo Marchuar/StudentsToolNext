@@ -1,0 +1,23 @@
+.mainCon {
+    display: flex;
+    width: 100%;
+    height: 35vw;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.errorText {
+    font-size: 120px;
+    margin: 0;
+}
+
+.link {
+    color: black;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: #14cf8c;
+}

@@ -1,0 +1,15 @@
+.alarmText {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mainCon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #a6a6a6;
+    border-radius: 15px;
+    background: white;
+    padding: 15px 25px;
+}
