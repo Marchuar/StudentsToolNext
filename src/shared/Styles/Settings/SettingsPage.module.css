@@ -1,0 +1,88 @@
+.mainCon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.myInfoCon {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #a6a6a6;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    padding: 30px;
+}
+
+.myInfoCon:first-child {
+    margin-right: 50px;
+}
+
+.myInfoText {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.mainInfoCon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.mySubjectsCon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.addButton {
+    margin-top: 20px;
+    background-color: white;
+    border: 2px solid #a6a6a6;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.deleteButton {
+    background-color: #f44336;
+    padding: 8px 15px;
+    border: 2px solid #a6a6a6;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: 0.2s;
+    color: white;
+}
+
+.deleteButton:hover {
+    border-color: #14cf8c;
+}
+
+.addButton:hover {
+    border-color: #14cf8c;
+}
+
+.alertMessage {
+    position: fixed;
+    left: 40%;
+    bottom: 20px;
+    z-index: 2;
+}
+
+.subjectName {
+    margin-right: 50px;
+}
+
+.addSubjectCon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}

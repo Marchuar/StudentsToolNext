@@ -1,0 +1,77 @@
+.mainCon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    border: 1px solid white;
+    background: white;
+    margin-bottom: 50px;
+    box-shadow: #171717 0 -4px 10px;
+}
+
+.logo {
+    height: 60px;
+    width: 60px;
+}
+
+.logoCon {
+    margin-left: 80px;
+}
+
+.navCon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    width: 350px;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.link:hover {
+    color: #14cf8c;
+}
+
+.linkUnderLine {
+    border-bottom: 2px solid #14cf8c;
+    text-decoration: none;
+
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.linkUnderLine:hover {
+    color: #14cf8c;
+}
+
+.logRegCon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    width: 170px;
+    margin-right: 100px;
+}
+
+.logoutButton {
+    padding: 7px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 2px solid #a6a6a6;
+    background-color: white;
+    border-radius: 10px;
+    transition: 0.2s;
+    margin-right: 50px;
+}
+
+.logoutButton:hover {
+    border-color: #14cf8c;
+}
