@@ -1,5 +1,3 @@
-'use server'
-
 import axios, {AxiosError} from "axios";
 import type {User} from "@/app/(interfaces)/LoginReg/IUser";
 import {redirect} from "next/navigation";
@@ -26,11 +24,10 @@ const tryToRegister = async ({username, email, password, selectedRole, name, age
         console.log(selectedRole);
         const response = await axios.post("https://studentstoolnext-backend.onrender.com/api/add-user", {user, selectedRole, studentInfo});
 
-        localStorage.setItem("token", response.data.token);
         console.log(response.data.token);
         window.dispatchEvent(new Event("storage"));
 
-        return "Successfully registered";
+        return response.data.token;
     } catch (error) {
         const axiosError = error as AxiosError;
         if (axiosError.response?.status === 409) {
