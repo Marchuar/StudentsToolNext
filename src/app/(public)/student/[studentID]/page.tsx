@@ -1,15 +1,19 @@
 'use client'
 
 import classes from "@/shared/Styles/Student/StudentPage.module.css"
-import {useParams} from "next/navigation";
 import React, {type FC, useEffect, useState} from "react";
 
 import type {IStudent} from "@/app/(interfaces)/IStudent";
 import Alert, {type AlertColor, type AlertPropsColorOverrides} from "@mui/material/Alert";
 import type {OverridableStringUnion} from "@mui/types";
 import LoadBackdrop from "@/components/Loading/Backdrop";
-import axios from "axios";
+
 import jwt from "jsonwebtoken";
+import {getAllStudents} from "@/server-actions/Settings/getAllStudents";
+import {getMyStudents} from "@/server-actions/Settings/getMyStudents";
+import {getMySubjects} from "@/server-actions/Settings/getMySubjects";
+import {addStudent} from "@/server-actions/Student/addStudent";
+import {removeStudent} from "@/server-actions/Student/removeStudent";
 
 interface StudentPageProps {
     params: Promise<{
@@ -59,34 +63,28 @@ const StudentPage: FC<StudentPageProps> = ({params}) => {
             //Loading starts
             setLoading(true);
 
-            const getAllStudents= async () => {
-                //all-students
-                const response = await axios.get("http://localhost:8080/api/get-all-students");
-                setStudentsList(response.data);
-
+            getAllStudents().then((response) => {
+                console.log("Students are got!: ", response);
+                setStudentsList(response);
 
                 //Only Teacher have students
                 if(role === "Teacher") {
                     //My students
-                    const myStudentsResponse = await axios.post("http://localhost:8080/api/get-my-students", token);
-                    console.log(myStudentsResponse.data);
-                    setMyStudents(myStudentsResponse.data);
-                }
-            }
+                    getMyStudents(token).then((response) => {
+                        console.log(response);
 
-            getAllStudents().then(() => {
-                console.log("Students are got!");
+                        setMyStudents(response);
+                    })
+
+                }
             })
 
             //Only Teacher can add Student and needs Subjects here
             if(role === "Teacher") {
-                const getMySubjects = async () => {
-                    const response = await axios.post("http://localhost:8080/api/get-my-subjects", {token, role});
-                    setMySubjects(response.data);
-                }
+                getMySubjects(token).then((response) => {
+                    console.log("Subjects are got!: ", response);
 
-                getMySubjects().then(() => {
-                    console.log("Subjects are got!");
+                    setMySubjects(response);
                 })
             }
 
@@ -140,18 +138,13 @@ const StudentPage: FC<StudentPageProps> = ({params}) => {
         //Loading
         setLoading(true);
 
-        try {
-            const token: string = localStorage.getItem("token") || "";
-            console.log(token);
+        const token: string = localStorage.getItem("token") || "";
 
-            const response = await axios.post("http://localhost:8080/api/add-student", {studentID, token});
-            console.log(response.data);
-            setMyStudents(response.data);
-        }
-        catch (error) {
-            console.log(error);
-        }
+        addStudent(studentID, token).then((response) => {
+            console.log(response);
 
+            setMyStudents(response);
+        })
 
         //Loading
         setLoading(false);
@@ -166,17 +159,13 @@ const StudentPage: FC<StudentPageProps> = ({params}) => {
     const onStudentRemoved = async () => {
         setLoading(true);
 
-        try {
-            const token: string = localStorage.getItem("token") || "";
-            console.log(token);
+        const token: string = localStorage.getItem("token") || "";
 
-            const response = await axios.post("http://localhost:8080/api/delete-student", {studentID, token});
-            console.log(response.data);
-            setMyStudents(response.data);
-        }
-        catch (error) {
-            console.log(error);
-        }
+        removeStudent(studentID, token).then((response) => {
+            console.log(response);
+
+            setMyStudents(response);
+        })
 
         //CSS
         setSeverity("error");

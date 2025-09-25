@@ -5,7 +5,6 @@ import React, {useEffect, useState} from "react";
 import LoginAlarm from "@/app/(public)/login/LoginAlarm";
 import Student from "@/app/(public)/students/Student";
 import type {IStudent} from "@/app/(interfaces)/IStudent";
-import axios from "axios";
 import LoadBackdrop from "@/components/Loading/Backdrop";
 import type {AlertColor} from "@mui/material/Alert";
 import Alert from "@mui/material/Alert";
@@ -14,6 +13,10 @@ import Alert from "@mui/material/Alert";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import jwt from "jsonwebtoken";
+import {getAllStudents} from "@/server-actions/Settings/getAllStudents";
+import {getMyStudents} from "@/server-actions/Settings/getMyStudents";
+import {getMySubjects} from "@/server-actions/Settings/getMySubjects";
+import {saveSubjects} from '@/server-actions/Settings/saveSubjects';
 
 
 const SettingsPage = () => {
@@ -66,44 +69,27 @@ const SettingsPage = () => {
 
             if(!isStudent) {
                 //get All Students
-                const getAllStudents = async () => {
-                    setLoading(true);
+                setLoading(true);
 
-                    try {
-                        //My students
-                        const myStudentsResponse = await axios.post("http://localhost:8080/api/get-my-students", token);
-                        console.log(myStudentsResponse.data);
-                        setMyStudents(myStudentsResponse.data);
+                getAllStudents().then((response) => {
+                    console.log("All students fetched!: ", response);
 
-                        //All students
-                        const response = await axios.get("http://localhost:8080/api/get-all-students");
-                        setAllStudents(response.data);
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
+                    setAllStudents(response);
+                })
 
-                getAllStudents().then(() => {
-                    console.log("My students fetched!");
-                    console.log(myStudents);
+                getMyStudents(token).then((response) => {
+                    console.log("My students fetched!: ", response);
+
+                    setMyStudents(response);
+
+                    setLoading(false);
                 })
             }
 
+            getMySubjects(token).then((response) => {
+                console.log("My subjects fetched!: ", response);
 
-
-            //get my subjects
-            const getMySubjects = async () => {
-                //All students
-                const decoded = jwt.decode(token) as { role: string };
-                console.log(decoded);
-                const role = decoded.role;
-
-                const response = await axios.post("http://localhost:8080/api/get-my-subjects", {token, role});
-                setMySubjects(response.data || []);
-            }
-
-            getMySubjects().then(() => {
-                console.log("My subjects fetched!");
+                setMySubjects(response || []);
                 setLoading(false);
             })
         }
@@ -127,32 +113,30 @@ const SettingsPage = () => {
         setMySubjects(mySubjects => mySubjects.filter(item => item !== subject));
     }
 
-    const onSaveSubjects = async () => {
+    const onSaveSubjects = () => {
         setLoading(true);
+        const token = localStorage.getItem("token") || "";
 
-        try {
-            const token = localStorage.getItem("token") || "";
+        saveSubjects(mySubjects, token).then((response) => {
+            console.log("Saved subjects fetched!: ", response);
 
-            //Decoded JWT Token
-            const decoded = jwt.decode(token) as { role: string };
-            console.log(decoded);
-            const role = decoded.role;
+            if(response === "Success") {
+                console.log(response);
 
-            console.log(mySubjects);
-            const response = await axios.post("http://localhost:8080/api/save-subjects", {mySubjects, token, role})
-            console.log(response);
+                setSeverity("success");
+                setIsHidden(false);
+                setAlertText("Saved successfully.");
 
+            } else if (response === "Error") {
+                console.log(response);
 
-            setSeverity("success");
-            setIsHidden(false);
-            setAlertText("Saved successfully.");
-        }
-        catch (error) {
-            console.log(error);
-            setSeverity("error");
-            setIsHidden(false);
-            setAlertText("Failed!");
-        }
+                setSeverity("error");
+                setIsHidden(false);
+                setAlertText("Failed!");
+
+            }
+
+        })
 
         setLoading(false);
     }

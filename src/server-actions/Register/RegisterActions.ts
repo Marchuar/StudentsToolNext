@@ -1,3 +1,5 @@
+'use server'
+
 import axios, {AxiosError} from "axios";
 import type {User} from "@/app/(interfaces)/LoginReg/IUser";
 import {redirect} from "next/navigation";

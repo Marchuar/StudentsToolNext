@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import LoginAlarm from "@/app/(public)/login/LoginAlarm";
 import axios from "axios";
 import LoadBackdrop from "@/components/Loading/Backdrop";
+import {getAllStudents} from "@/server-actions/Settings/getAllStudents";
 
 
 const StudentsPage = () => {
@@ -26,13 +27,11 @@ const StudentsPage = () => {
         if(token) {
             setLoading(true);
 
-            const getAllStudents= async () => {
-                const response = await axios.get("http://localhost:8080/api/get-all-students")
-                setStudentsList(response.data);
-            }
+            getAllStudents().then((response) => {
+                console.log("Students are fetched successfully: ", response);
 
-            getAllStudents().then(() => {
-                console.log("Students are fetched successfully");
+                setStudentsList(response)
+
                 setLoading(false);
             })
         }
