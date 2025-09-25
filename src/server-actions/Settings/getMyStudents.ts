@@ -5,7 +5,7 @@ import axios from "axios";
 export const getMyStudents = async (token: string) => {
     try {
         //My students
-        const myStudentsResponse = await axios.post("http://localhost:8080/api/get-my-students", token);
+        const myStudentsResponse = await axios.post("https://studentstoolnext-backend.onrender.com/api/get-my-students", token);
         console.log(myStudentsResponse.data);
 
         return myStudentsResponse.data;
