@@ -12,7 +12,7 @@ export const saveSubjects = async (mySubjects: Object, token: string) => {
         const role = decoded.role;
 
         console.log(mySubjects);
-        const response = await axios.post("http://localhost:8080/api/save-subjects", {mySubjects, token, role})
+        const response = await axios.post("https://studentstoolnext-backend.onrender.com/api/save-subjects", {mySubjects, token, role})
         console.log(response);
 
         return "Success";

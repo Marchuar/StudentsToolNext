@@ -24,7 +24,7 @@ const tryToRegister = async ({username, email, password, selectedRole, name, age
 
     try {
         console.log(selectedRole);
-        const response = await axios.post("http://localhost:8080/api/add-user", {user, selectedRole, studentInfo});
+        const response = await axios.post("https://studentstoolnext-backend.onrender.com/api/add-user", {user, selectedRole, studentInfo});
 
         localStorage.setItem("token", response.data.token);
         console.log(response.data.token);

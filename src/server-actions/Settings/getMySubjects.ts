@@ -11,7 +11,7 @@ export const getMySubjects = async (token: string) => {
         console.log(decoded);
         const role = decoded.role;
 
-        const response = await axios.post("http://localhost:8080/api/get-my-subjects", {token, role});
+        const response = await axios.post("https://studentstoolnext-backend.onrender.com/api/get-my-subjects", {token, role});
         return response.data;
     } catch(error) {
         return error;

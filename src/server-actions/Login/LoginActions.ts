@@ -20,7 +20,7 @@ const tryToLogin = async ({email, password} :ILoginProps) => {
 
     try {
 
-        const response = await axios.post("http://localhost:8080/api/login-user", user)
+        const response = await axios.post("https://studentstoolnext-backend.onrender.com/api/login-user", user)
 
         localStorage.setItem("token", response.data.token);
         console.log(response.data.token);
