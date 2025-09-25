@@ -41,7 +41,9 @@ const Login = () => {
             setSeverity("error");
             setAlertText(response);
             setIsHidden(false);
-        } else if(response === "Successfully logged in") {
+        } else if(response) {
+            localStorage.setItem("token", response);
+
             redirect('/');
         }
     }
