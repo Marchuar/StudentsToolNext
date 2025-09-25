@@ -7,6 +7,7 @@ import com.example.StudentsTool.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -19,10 +20,12 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     private final StudentRepository studentRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // Constructor injection ensures studentRepository is never null
-    public UserController(StudentRepository studentRepository) {
+    public UserController(StudentRepository studentRepository, PasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/add-user")
@@ -30,6 +33,8 @@ public class UserController {
 
         final User user = request.getUser();
         final String role = request.getSelectedRole();
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 
         //check all data
@@ -117,10 +122,10 @@ public class UserController {
 
         //check Teacher
         Optional<User> dbUser = userRepository.findByEmail(user.getEmail());
-        if (dbUser.isEmpty() || !dbUser.get().getPassword().equals(user.getPassword())) {
+        if (dbUser.isEmpty() || !passwordEncoder.matches(user.getPassword(), dbUser.get().getPassword())) {
             //check Student
             Optional<Student> dbStudent = studentRepository.findByEmail(user.getEmail());
-            if (dbStudent.isEmpty() || !dbStudent.get().getPassword().equals(user.getPassword())) {
+            if (dbStudent.isEmpty() || !passwordEncoder.matches(user.getPassword(), dbStudent.get().getPassword())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials!");
             } else {
                 role = "Student";
