@@ -1,3 +1,6 @@
+'use server'
+
+
 import type {User} from "@/app/(interfaces)/LoginReg/IUser";
 import axios, {AxiosError} from "axios";
 import jwt from "jsonwebtoken";

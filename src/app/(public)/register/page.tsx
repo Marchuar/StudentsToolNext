@@ -37,25 +37,6 @@ const Register = () => {
         }
     }, [])
 
-    const onUsernameEnter = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setUsername(e.target.value);
-    }
-
-    const onEmailEnter = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setEmail(e.target.value);
-    }
-
-    const onPasswordEnter = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setPassword(e.target.value);
-    }
-
-    const onNameEnter = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setName(e.target.value);
-    }
-
-    const onAgeEnter = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setAge(parseInt(e.target.value));
-    }
 
     const onRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
         setLoading(true);
@@ -85,11 +66,11 @@ const Register = () => {
                 <h2 className={classes.pageName}>Registration</h2>
 
                 <div className={classes.inputCon}>
-                    <TextField onChange={(e) => onUsernameEnter(e)} id="username" label="Username" variant="standard" size="small" value={username} type="username" required/>
+                    <TextField onChange={(e) => setUsername(e.target.value)} id="username" label="Username" variant="standard" size="small" value={username} type="username" required/>
 
-                    <TextField onChange={(e) => onEmailEnter(e)} id="email" label="Email" variant="standard" size="small" value={email} type="email" required/>
+                    <TextField onChange={(e) => setEmail(e.target.value)} id="email" label="Email" variant="standard" size="small" value={email} type="email" required/>
 
-                    <TextField onChange={(e) => onPasswordEnter(e)} id="password" label="Password" variant="standard" size="small" value={password} type="password" required/>
+                    <TextField onChange={(e) => setPassword(e.target.value)} id="password" label="Password" variant="standard" size="small" value={password} type="password" required/>
                 </div>
 
                 <FormControl>
@@ -106,9 +87,9 @@ const Register = () => {
                     </RadioGroup>
 
                     <div style={selectedRole === "Student" ? {display: "flex"} : {display: "none"}} className={classes.studentInfoCon}>
-                        <TextField style={{marginBottom: "20px", marginTop: "15px"}} onChange={(e) => onNameEnter(e)} id="name" label="Name" variant="standard" size="small" value={name} type="name" required/>
+                        <TextField style={{marginBottom: "20px", marginTop: "15px"}} onChange={(e) => setName(e.target.value)} id="name" label="Name" variant="standard" size="small" value={name} type="name" required/>
 
-                        <TextField style={{marginBottom: "20px"}} onChange={(e) => onAgeEnter(e)} id="age" label="Age" variant="standard" size="small" value={age} type="number" required/>
+                        <TextField style={{marginBottom: "20px"}} onChange={(e) => setAge(e.target.value !== "" ? parseInt(e.target.value) : 0)} id="age" label="Age" variant="standard" size="small" value={age} type="number" required/>
                     </div>
                 </FormControl>
 
