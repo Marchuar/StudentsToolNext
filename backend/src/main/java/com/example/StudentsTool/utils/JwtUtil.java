@@ -10,7 +10,7 @@ import javax.crypto.SecretKey;
 
 public class JwtUtil {
 
-    private static final String SECRET = "***REMOVED***"; // at least 256 bits for HS256
+    private static final String SECRET = System.getenv("JWT_SECRET"); // at least 256 bits for HS256
     private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 7; // 24 * 7 hour
 
