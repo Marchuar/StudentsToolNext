@@ -3,13 +3,6 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 html,
 body {
     width: 100vw;
@@ -25,10 +18,4 @@ body {
   -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
 
-}
-
-@media (prefers-color-scheme: light) {
-  html {
-    color-scheme: dark;
-  }
 }
